@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feliz 15 Anos, Portela!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        @keyframes sparkle {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+        @keyframes starClick {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+        .confetti {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            animation: confetti 5s linear infinite;
+        }
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        .twinkle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        .gift-box {
+            transition: all 0.5s ease;
+            transform-style: preserve-3d;
+        }
+        .gift-box:hover {
+            transform: scale(1.05);
+        }
+        .gift-box.open {
+            transform: scale(1.1) rotateY(180deg);
+        }
+        .gift-content {
+            backface-visibility: hidden;
+            transform: rotateY(180deg);
+        }
+        .photo-frame {
+            border: 8px solid #4a1d96;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+        }
+        .title-animation {
+            animation: float 3s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+        }
+        .crown {
+            filter: drop-shadow(0 0 8px gold);
+        }
+        .dress-shadow {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        }
+        .diamond {
+            filter: drop-shadow(0 0 5px #fff);
+        }
+        .music-btn {
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+        .music-btn:active {
+            transform: scale(0.98);
+        }
+        .star {
+            position: absolute;
+            color: gold;
+            animation: twinkle 2s infinite alternate;
+        }
+        .click-star {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            animation: starClick 1s ease-out forwards;
+            z-index: 9999;
+        }
+        .dean-container {
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+        }
+        .dean-container:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.9));
+        }
+        .speech-bubble {
+            position: relative;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #000;
+            font-weight: bold;
+            max-width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #ffffff;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-purple-900 to-gray-900 min-h-screen overflow-x-hidden relative font-['Montserrat'] text-white cursor-pointer">
+    <!-- Background Elements -->
+    <div id="confetti-container"></div>
+    <div id="sparkle-container"></div>
+    <div id="twinkle-container"></div>
+    <div id="stars-container"></div>
+
+    <!-- Header -->
+    <header class="text-center py-8 px-4 relative z-10">
+        <div class="flex justify-center mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 crown" viewBox="0 0 20 20" fill="gold">
+                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <h1 class="title-animation text-5xl md:text-6xl font-bold text-gold font-['Dancing_Script']">
+            Feliz 15 Anos, Portela!
+        </h1>
+        <p class="mt-4 text-xl text-purple-200">Clique nos presentes para revelar suas surpresas!</p>
+    </header>
+
+    <!-- Dean Winchester Section -->
+    <div class="container mx-auto px-4 py-8 text-center relative z-10">
+        <div class="max-w-md mx-auto bg-black bg-opacity-40 rounded-xl p-6 border border-purple-600">
+            <h2 class="text-2xl font-bold text-white mb-4 font-['Dancing_Script']">Um Presente Especial</h2>
+            <div class="dean-container">
+                <!-- Speech bubble -->
+                <div class="speech-bubble mb-4 animate-bounce">
+                    Feliz Aniversário!
+                </div>
+                <!-- Dean Winchester image -->
+                <img src="4c32174b94368d0a570bc8d8b6f5aac0.jpg" alt="Dean Winchester" class="w-48 h-48 mx-auto rounded-full object-cover border-4 border-purple-500">
+            </div>
+            <p class="mt-4 text-purple-200">"Carry on my wayward son..." - Dean Winchester te deseja feliz 15 anos!</p>
+        </div>
+    </div>
+
+    <!-- Gift Boxes Container -->
+    <main class="container mx-auto px-4 py-8 relative z-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Gift Box 1 (Message) -->
+            <div class="gift-box-container text-center">
+                <div class="gift-box relative w-72 h-72 mx-auto cursor-pointer" onclick="openGift(this)">
+                    <div class="absolute inset-0 bg-purple-800 rounded-lg shadow-xl flex items-center justify-center border-2 border-purple-600">
+                        <div class="w-4/5 h-4/5 bg-purple-900 rounded-sm flex items-center justify-center border border-purple-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-purple-400 diamond" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v12m8-6H4" />
+                            </svg>
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-8 bg-purple-700 rounded-t-lg border-b border-purple-600"></div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-purple-600 rounded-full"></div>
+                    </div>
+                    <div class="gift-content absolute inset-0 bg-purple-900 rounded-lg p-6 flex items-center justify-center hidden border-2 border-purple-600">
+                        <p class="text-purple-100 font-semibold text-lg">ei, só queria te lembrar que eu te amo tipo muuuuito, tá? cê é meu cantinho seguro, minha pessoa preferida no mundo todinho. obrigada por existir na minha vida. 💌</p>
+                    </div>
+                </div>
+                <p class="mt-4 text-purple-300 font-semibold">Presente #1</p>
+            </div>
+
+            <!-- Gift Box 2 (Photo) -->
+            <div class="gift-box-container text-center">
+                <div class="gift-box relative w-72 h-72 mx-auto cursor-pointer" onclick="openGift(this)">
+                    <div class="absolute inset-0 bg-blue-800 rounded-lg shadow-xl flex items-center justify-center border-2 border-blue-600">
+                        <div class="w-4/5 h-4/5 bg-blue-900 rounded-sm flex items-center justify-center border border-blue-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-blue-400 diamond" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v12m8-6H4" />
+                            </svg>
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-8 bg-blue-700 rounded-t-lg border-b border-blue-600"></div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-blue-600 rounded-full"></div>
+                    </div>
+                    <div class="gift-content absolute inset-0 bg-blue-900 rounded-lg p-4 flex items-center justify-center hidden border-2 border-blue-600">
+                        <div class="photo-frame w-full h-full bg-gray-800 flex items-center justify-center">
+                            <img src="portela1.jpeg" alt="Momento especial" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4 text-blue-300 font-semibold">Presente #2</p>
+            </div>
+
+            <!-- Gift Box 3 (Message) -->
+            <div class="gift-box-container text-center">
+                <div class="gift-box relative w-72 h-72 mx-auto cursor-pointer" onclick="openGift(this)">
+                    <div class="absolute inset-0 bg-pink-800 rounded-lg shadow-xl flex items-center justify-center border-2 border-pink-600">
+                        <div class="w-4/5 h-4/5 bg-pink-900 rounded-sm flex items-center justify-center border border-pink-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-pink-400 diamond" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1, d="M12 6v12m8-6H4" />
+                            </svg>
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-8 bg-pink-700 rounded-t-lg border-b border-pink-600"></div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-pink-600 rounded-full"></div>
+                    </div>
+                    <div class="gift-content absolute inset-0 bg-pink-900 rounded-lg p-6 flex items-center justify-center hidden border-2 border-pink-600">
+                        <p class="text-pink-100 font-semibold text-lg">te conhecer foi uma das coisas mais incríveis já me aconteceu, tudo em você é especial. obrigada por ser quem você é. 💘</p>
+                    </div>
+                </div>
+                <p class="mt-4 text-pink-300 font-semibold">Presente #3</p>
+            </div>
+
+            <!-- Gift Box 4 (Photo) -->
+            <div class="gift-box-container text-center">
+                <div class="gift-box relative w-72 h-72 mx-auto cursor-pointer" onclick="openGift(this)">
+                    <div class="absolute inset-0 bg-red-800 rounded-lg shadow-xl flex items-center justify-center border-2 border-red-600">
+                        <div class="w-4/5 h-4/5 bg-red-900 rounded-sm flex items-center justify-center border border-red-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-red-400 diamond" fill="none" viewBox="0 0 24 24, stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v12m8-6H4" />
+                            </svg>
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-8 bg-red-700 rounded-t-lg border-b border-red-600"></div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-red-600 rounded-full"></div>
+                    </div>
+                    <div class="gift-content absolute inset-0 bg-red-900 rounded-lg p-4 flex items-center justify-center hidden border-2 border-red-600">
+                        <div class="photo-frame w-full h-full bg-gray-800 flex items-center justify-center">
+                            <img src="portela2.jpeg" alt="Momento especial" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4 text-red-300 font-semibold">Presente #4</p>
+            </div>
+
+            <!-- Gift Box 5 (Message) -->
+            <div class="gift-box-container text-center">
+                <div class="gift-box relative w-72 h-72 mx-auto cursor-pointer" onclick="openGift(this)">
+                    <div class="absolute inset-0 bg-yellow-800 rounded-lg shadow-xl flex items-center justify-center border-2 border-yellow-600">
+                        <div class="w-4/5 h-4/5 bg-yellow-900 rounded-sm flex items-center justify-center border border-yellow-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-yellow-400 diamond" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v12m8-6H4" />
+                            </svg>
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-8 bg-yellow-700 rounded-t-lg border-b border-yellow-600"></div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-yellow-600 rounded-full"></div>
+                    </div>
+                    <div class="gift-content absolute inset-0 bg-yellow-900 rounded-lg p-6 flex items-center justify-center hidden border-2 border-yellow-600">
+                        <p class="text-yellow-100 font-semibold text-lg">Que seu vestido de debutante brilhe tanto quanto seu sorriso!não importa a distância, eu sempree vou estar aqui, torcendo e amandoo você. eu te amoo muitoo!! 💕</p>
+                    </div>
+                </div>
+                <p class="mt-4 text-yellow-300 font-semibold">Presente #5</p>
+            </div>
+
+            <!-- Gift Box 6 (Photo) -->
+            <div class="gift-box-container text-center">
+                <div class="gift-box relative w-72 h-72 mx-auto cursor-pointer" onclick="openGift(this)">
+                    <div class="absolute inset-0 bg-green-800 rounded-lg shadow-xl flex items-center justify-center border-2 border-green-600">
+                        <div class="w-4/5 h-4/5 bg-green-900 rounded-sm flex items-center justify-center border border-green-700">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-400 diamond" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 6v12m8-6H4" />
+                            </svg>
+                        </div>
+                        <div class="absolute top-0 left-0 w-full h-8 bg-green-700 rounded-t-lg border-b border-green-600"></div>
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-green-600 rounded-full"></div>
+                    </div>
+                    <div class="gift-content absolute inset-0 bg-green-900 rounded-lg p-4 flex items-center justify-center hidden border-2 border-green-600">
+                        <div class="photo-frame w-full h-full bg-gray-800 flex items-center justify-center">
+                            <img src="portela3.jpeg" alt="Momento especial" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+                <p class="mt-4 text-green-300 font-semibold">Presente #6</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Debutante Dress Section -->
+    <div class="container mx-auto px-4 py-12 text-center">
+        <div class="max-w-2xl mx-auto bg-purple-900 bg-opacity-50 rounded-xl p-8 border border-purple-700">
+            <h2 class="text-3xl font-bold text-white mb-6 font-['Dancing_Script']">Sua Noite Especial</h2>
+            <p class="text-purple-100 text-lg">Que esta noite de 15 anos seja inesquecível, repleta de amor, alegria e momentos mágicos!</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 relative z-10">
+        <p class="text-purple-300 mb-4">Feito com ❤️ para você, Portela!</p>
+        <p class="text-purple-400 text-sm">Um presente especial do Enzo raphael😊😊</p>
+        <p class="text-xl text-gold font-['Dancing_Script'] animate-pulse">✨ Feliz 15 Anos! ✨</p>
+
+        <!-- Music Button -->
+        <div class="mt-8 flex justify-center">
+            <button id="musicBtn" class="music-btn bg-purple-700 hover:bg-purple-600 text-white font-bold py-3 px-6 rounded-full flex items-center">
+                <svg id="playIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg id="pauseIcon" xmlns="http://www.w3.org/2000/ssvg" class="h-6 w-6 mr-2 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span id="musicText">Tocar Flamingos</span>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Audio -->
+    <audio id="birthdayMusic" loop>
+        <source src="06. Baco Exu do Blues - Flamingos (ft. Tuyo).mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Create confetti
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDuration = (3 + Math.random() * 5) + 's';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                confetti.style.width = (5 + Math.random() * 10) + 'px';
+                confetti.style.height = (5 + Math.random() * 10) + 'px';
+                container.appendChild(confetti);
+            }
+        }
+
+        // Create sparkles
+        function createSparkles() {
+            const container = document.getElementById('sparkle-container');
+            
+            for (let i = 0; i < 40; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + 'vw';
+                sparkle.style.top = Math.random() * 100 + 'vh';
+                sparkle.style.animationDuration = (1 + Math.random() * 3) + 's';
+                sparkle.style.animationDelay = Math.random() * 3 + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        // Create twinkles
+        function createTwinkles() {
+            const container = document.getElementById('twinkle-container');
+            
+            for (let i = 0; i < 100; i++) {
+                const twinkle = document.createElement('div');
+                twinkle.className = 'twinkle';
+                twinkle.style.left = Math.random() * 100 + 'vw';
+                twinkle.style.top = Math.random() * 100 + 'vh';
+                twinkle.style.animationDuration = (2 + Math.random() * 4) + 's';
+                twinkle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(twinkle);
+            }
+        }
+
+        // Create stars
+        function createStars() {
+            const container = document.getElementById('stars-container');
+            const starSymbols = ['★', '☆', '✧', '✦'];
+            
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.textContent = starSymbols[Math.floor(Math.random() * starSymbols.length)];
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.fontSize = (10 + Math.random() * 20) + 'px';
+                star.style.animationDuration = (1 + Math.random() * 3) + 's';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(star);
+            }
+        }
+
+        // Create click stars
+        function createClickStar(x, y) {
+            const star = document.createElement('div');
+            star.className = 'click-star';
+            
+            const starSymbols = ['★', '☆', '✧', '✦', '✨', '⭐', '🌟'];
+            const colors = ['gold', 'pink', 'lightblue', 'white', 'yellow'];
+            
+            star.textContent = starSymbols[Math.floor(Math.random() * starSymbols.length)];
+            star.style.left = x + 'px';
+            star.style.top = y + 'px';
+            star.style.color = colors[Math.floor(Math.random() * colors.length)];
+            star.style.fontSize = (20 + Math.random() * 30) + 'px';
+            
+            document.body.appendChild(star);
+            
+            // Remove after animation
+            setTimeout(() => {
+                star.remove();
+            }, 1000);
+        }
+
+        // Open gift box
+        function openGift(element) {
+            // Play sound
+            const audio = new Audio('gift-open.mp3');
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log("Audio play failed:", e));
+            
+            // Create sparkles explosion
+            if (element.classList.contains('open') === false) {
+                createSparklesAround(element);
+            }
+            
+            // Toggle open class
+            element.classList.toggle('open');
+
+            // Show content
+            const content = element.querySelector('.gift-content');
+            content.classList.toggle('hidden');
+
+            // Hide the box part when open
+            if (element.classList.contains('open')) {
+                setTimeout(() => {
+                    element.querySelector('div:not(.gift-content)').style.opacity = '0';
+                }, 300);
+            } else {
+                element.querySelector('div:not(.gift-content)').style.opacity = '1';
+            }
+        }
+
+        // Create sparkles around element
+        function createSparklesAround(element) {
+            const rect = element.getBoundingClientRect();
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = x + 'px';
+                sparkle.style.top = y + 'px';
+                sparkle.style.animation = 'none';
+                
+                document.body.appendChild(sparkle);
+                
+                // Trigger reflow
+                void sparkle.offsetWidth;
+                
+                // Apply animation
+                sparkle.style.animation = `sparkle ${1 + Math.random() * 2}s ease-out forwards`;
+                sparkle.style.transform = `translate(${(Math.random() - 0.5) * 100}px, ${(Math.random() - 0.5) * 100}px)`;
+                
+                // Remove after animation
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 3000);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createConfetti();
+            createSparkles();
+            createTwinkles();
+            createStars();
+            
+            // Add more stars periodically
+            setInterval(() => {
+                createStars();
+            }, 5000);
+
+            // Music button functionality
+            const musicBtn = document.getElementById('musicBtn');
+            const birthdayMusic = document.getElementById('birthdayMusic');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            const musicText = document.getElementById('musicText');
+            
+            let isPlaying = false;
+            
+            musicBtn.addEventListener('click', () => {
+                if (isPlaying) {
+                    birthdayMusic.pause();
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                    musicText.textContent = 'Tocar Valsa';
+                } else {
+                    birthdayMusic.play().catch(e => console.log("Audio play failed:", e));
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                    musicText.textContent = 'Pausar Valsa';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // Change button text when music ends (though it's on loop)
+            birthdayMusic.addEventListener('ended', () => {
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                musicText.textContent = 'Tocar Valsa';
+                isPlaying = false;
+            });
+
+            // Create stars on click anywhere
+            document.addEventListener('click', (e) => {
+                // Create 3-5 stars at click position
+                const starCount = 3 + Math.floor(Math.random() * 3);
+                for (let i = 0; i < starCount; i++) {
+                    // Add slight random offset to click position
+                    const offsetX = (Math.random() - 0.5) * 30;
+                    const offsetY = (Math.random() - 0.5) * 30;
+                    createClickStar(e.clientX + offsetX, e.clientY + offsetY);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
